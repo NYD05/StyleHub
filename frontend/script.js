@@ -10,6 +10,9 @@ const sketchContainer = document.getElementById('sketchContainer');
 // Close buttons
 const closeButtons = document.querySelectorAll('.close');
 
+// Home buttons
+const homeButtons = document.querySelectorAll('.home-btn');
+
 // Event Listeners
 uploadBtn.addEventListener('click', () => {
     uploadModal.style.display = 'block';
@@ -25,6 +28,15 @@ registerBtn.addEventListener('click', () => {
 
 // Close modals when clicking on X
 closeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        uploadModal.style.display = 'none';
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'none';
+    });
+});
+
+// Close modals when clicking home button
+homeButtons.forEach(button => {
     button.addEventListener('click', () => {
         uploadModal.style.display = 'none';
         loginModal.style.display = 'none';
