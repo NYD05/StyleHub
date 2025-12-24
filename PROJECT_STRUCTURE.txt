@@ -1,0 +1,35 @@
+StyleHub Project Structure
+=========================
+
+.
+|____database
+| |____schema.sql
+|____run_stylehub.sh
+|____STYLEHUB_PROJECT_OVERVIEW.pdf.txt
+|____react-frontend
+| |____public
+| | |____index.html
+| |____package.json
+| |____src
+| | |____App.css
+| | |____index.css
+| | |____main.jsx
+| | |____App.jsx
+|____frontend
+| |____index.html
+| |____styles.css
+| |____script.js
+|____LICENSE
+|____SUMMARY.md
+|____tests
+| |____test_app.py
+|____backend
+| |____requirements.txt
+| |____app.py
+|____docs
+| |____Project_Summary.md
+| |____Framing_Template.md
+| |____Deployment_Guide.md
+| |____Testing_Documentation.md
+| |____Project_Summary.html
+|____README.md
