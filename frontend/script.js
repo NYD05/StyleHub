@@ -66,7 +66,7 @@ let currentUser = null;
 let sessionToken = null;
 
 // API Functions
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://stylehub-hd1p.onrender.com/api';
 
 async function uploadSketch() {
     if (!sessionToken) {
