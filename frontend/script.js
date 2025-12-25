@@ -147,6 +147,7 @@ async function loginUser() {
             updateUIForLoggedInUser(username);
             loginModal.style.display = 'none';
             document.getElementById('loginForm').reset();
+            loadSketches(); // Refresh gallery after login
         } else {
             alert('Login failed: ' + result.error);
         }
@@ -290,7 +291,7 @@ function toggleComments(sketchId) {
 
 async function addComment(sketchId, comment) {
     try {
-        const response = await fetch(`${API_BASE_URL}/sketches/${sketchId}/comment`, {
+        const response = await fetch(`${API_BASE_URL}/sketches/${sketchId}/comments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
