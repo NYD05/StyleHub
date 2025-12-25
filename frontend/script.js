@@ -224,6 +224,12 @@ async function loadSketches() {
         
         sketchContainer.innerHTML = '';
         
+        // Only show sketches if user is logged in
+        if (!sessionToken) {
+            sketchContainer.innerHTML = '<p>Please log in to view sketches.</p>';
+            return;
+        }
+        
         sketches.forEach(sketch => {
             const sketchCard = document.createElement('div');
             sketchCard.className = 'sketch-card';
@@ -238,7 +244,7 @@ async function loadSketches() {
                     </div>
                     <div class="sketch-actions">
                         <button onclick="toggleLike(${sketch.id})">❤️ Like (${sketch.like_count || 0})</button>
-                        <button onclick="toggleComments(${sketch.id})">💬 Comments (${sketch.comment_count || 0})</button>
+                        <button onclick="viewComments(${sketch.id})">💬 Comments (${sketch.comment_count || 0})</button>
                         ${currentUser && currentUser === sketch.artist ? `<button onclick="deleteSketch(${sketch.id})">🗑️ Delete</button>` : ''}
                     </div>
                 </div>
@@ -387,6 +393,9 @@ function logoutUser() {
     
     // Automatically open login modal
     loginModal.style.display = 'block';
+    
+    // Refresh sketches to show 'log in to view' message
+    loadSketches();
 }
 
 // Load sketches when page loads
