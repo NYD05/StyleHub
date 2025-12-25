@@ -239,7 +239,6 @@ async function loadSketches() {
                         <button onclick="toggleLike(${sketch.id})">❤️ Like (${sketch.like_count || 0})</button>
                         <button onclick="toggleComments(${sketch.id})">💬 Comments (${sketch.comment_count || 0})</button>
                         ${currentUser && currentUser === sketch.artist ? `<button onclick="deleteSketch(${sketch.id})">🗑️ Delete</button>` : ''}
-                        <button onclick="window.location.href='/app'">🏠 Home</button>
                     </div>
                 </div>
             `;
@@ -251,17 +250,66 @@ async function loadSketches() {
     }
 }
 
-// Placeholder functions for social features
-function toggleLike(sketchId) {
+// Like and Comment functionality
+async function toggleLike(sketchId) {
     if (!sessionToken) {
         alert('Please log in to like sketches');
         return;
     }
-    alert('Like feature would be implemented here');
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/sketches/${sketchId}/like`, {
+            method: 'POST',
+            headers: {
+                'Authorization': sessionToken
+            }
+        });
+        
+        if (response.ok) {
+            loadSketches(); // Refresh to show updated like count
+        } else {
+            const result = await response.json();
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while liking the sketch');
+    }
 }
 
 function toggleComments(sketchId) {
-    alert('Comments feature would be implemented here');
+    if (!sessionToken) {
+        alert('Please log in to comment');
+        return;
+    }
+    const comment = prompt('Enter your comment:');
+    if (comment) {
+        addComment(sketchId, comment);
+    }
+}
+
+async function addComment(sketchId, comment) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/sketches/${sketchId}/comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionToken
+            },
+            body: JSON.stringify({ content: comment })
+        });
+        
+        if (response.ok) {
+            alert('Comment added!');
+            loadSketches(); // Refresh to show updated comment count
+        } else {
+            const result = await response.json();
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while adding comment');
+    }
 }
 
 // UI Update Functions
