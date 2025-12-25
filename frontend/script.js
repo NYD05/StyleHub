@@ -308,7 +308,7 @@ async function viewComments(sketchId) {
         } else {
             let commentText = 'Comments:\n\n';
             comments.forEach(c => {
-                commentText += `${c.username}: ${c.content}\n`;
+                commentText += `${c.author}: ${c.content}\n`;
             });
             commentText += '\n\nAdd a new comment?';
             
